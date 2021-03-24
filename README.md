@@ -1,6 +1,6 @@
 # Dice Loss for NLP Tasks
 
-This repository contains code for [Dice Loss for Data-imbalanced NLP Tasks](https://arxiv.org/pdf/1911.02855.pdf) at ACL2019. 
+This repository contains code for [Dice Loss for Data-imbalanced NLP Tasks](https://arxiv.org/pdf/1911.02855.pdf). 
 
 ## Setup
 
@@ -17,15 +17,16 @@ $ pip install -r requirements.txt
 
 - Download BERT Model Checkpoints
 
-Before running the repo, you must download the `BERT-Base` and `BERT-Large` checkpoints from [here](https://github.com/google-research/bert#pre-trained-models) and unzip it to some directory `$BERT_DIR`. 
+Before running the repo you must download the `BERT-Base` and `BERT-Large` checkpoints from [here](https://github.com/google-research/bert#pre-trained-models) and unzip it to some directory `$BERT_DIR`. 
 Then convert original TensorFlow checkpoints for BERT to a PyTorch saved file by running `bash scripts/prepare_ckpt.sh <path-to-unzip-tf-bert-checkpoints>`. 
 
 ## Apply Dice-Loss to NLP Tasks
 
-In this repository, we apply dice loss to three NLP tasks, including <br> 
+In this repository, we apply dice loss to four NLP tasks, including <br> 
 1. machine reading comprehension
 2. paraphrase identification task
 3. named entity recognition 
+4. text classification 
 
 ### 1. Machine Reading Comprehension
 
@@ -103,7 +104,6 @@ epoch=*.ckpt
 For NER, we use MRC-NER model as the backbone. <br>
 Processed datasets and model architecture can be found [here](https://arxiv.org/pdf/1910.11476.pdf). 
 
-
 ***Train*** <br>
 
 Please run `scripts/<ner-datdaset-name>/bert_<loss-type>.sh` to train and evaluate on the dev set every `$val_check_interval` epoch.
@@ -135,16 +135,47 @@ CUDA_VISIBLE_DEVICES=0 python3 ${REPO_PATH}/tasks/mrc_ner/evaluate.py \
 --path_to_model_checkpoint $OUTPUT_DIR/epoch=2.ckpt
 ```
 
+### 4. Text Classification 
+
+***Datasets*** <br> 
+
+We use TNews (Chinese Text Classification) as an example. 
+Before running experiments, you should [download](https://storage.googleapis.com/cluebenchmark/tasks/tnews_public.zip) and save the processed dataset files to `$DATA_DIR`. <br>
+
+***Train*** <br>
+
+We choose BERT as the backbone. <br>
+Please run `scripts/tnews/bert_<loss-type>.sh` to train and evaluate on the dev set every `$val_check_interval` epoch.
+The variable `<loss-type>` should take the value of `[focal, dice]` which denotes fine-tuning `BERT` with `focal loss`, `dice loss` , respectively. 
+
+* Run `bash scripts/tnews/bert_focal.sh`. After training, you will get 56.18 ACC, 55.17 F1 scores on the dev set. <br>
+
+* Run `bash scripts/tnews/bert_dice.sh`. After training, you will get 56.62 ACC, 55.68 F1 scores on the dev set. <br>
+
+The intermediate model checkpoints are saved at most `$max_keep_ckpt` times. 
+
+
 ## Citation 
 
 If you find this repository useful , please cite the following: 
 
-```
-@article{li2019dice,
-  title={Dice loss for data-imbalanced NLP tasks},
-  author={Li, Xiaoya and Sun, Xiaofei and Meng, Yuxian and Liang, Junjun and Wu, Fei and Li, Jiwei},
-  journal={arXiv preprint arXiv:1911.02855},
-  year={2019}
+```tex 
+@inproceedings{li-etal-2020-dice,
+    title = "Dice Loss for Data-imbalanced {NLP} Tasks",
+    author = "Li, Xiaoya  and
+      Sun, Xiaofei  and
+      Meng, Yuxian  and
+      Liang, Junjun  and
+      Wu, Fei  and
+      Li, Jiwei",
+    booktitle = "Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics",
+    month = jul,
+    year = "2020",
+    address = "Online",
+    publisher = "Association for Computational Linguistics",
+    url = "https://www.aclweb.org/anthology/2020.acl-main.45",
+    doi = "10.18653/v1/2020.acl-main.45",
+    pages = "465--476",
 }
 ```
 
