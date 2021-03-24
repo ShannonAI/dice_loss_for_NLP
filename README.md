@@ -27,7 +27,7 @@ $ pip install -r requirements.txt
 
 - Download BERT Model Checkpoints
 
-Before running the repo you must download the `BERT-Base` and `BERT-Large` checkpoints from [here](https://github.com/google-research/bert#pre-trained-models) and unzip it to some directory `$BERT_DIR`. 
+Before running the repo, you must download the `BERT-Base` and `BERT-Large` checkpoints from [here](https://github.com/google-research/bert#pre-trained-models) and unzip it to some directory `$BERT_DIR`. 
 Then convert original TensorFlow checkpoints for BERT to a PyTorch saved file by running `bash scripts/prepare_ckpt.sh <path-to-unzip-tf-bert-checkpoints>`. 
 
 ## Apply Dice-Loss to NLP Tasks
