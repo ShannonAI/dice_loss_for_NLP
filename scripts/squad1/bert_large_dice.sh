@@ -1,15 +1,11 @@
 #!/usr/bin/env bash
 # -*- coding: utf-8 -*-
 
-# author: xiaoya li
-# first create: 2021.01.14
-# file: bert_large_dice.sh
 # description:
 # predictions_1_7387.json
 # EM -> 83.98; F1 -> 90.89
 
 
-TIME=2021.01.14
 FILE_NAME=dice_large
 REPO_PATH=/userhome/xiaoya/mrc-with-dice-loss
 export PYTHONPATH="$PYTHONPATH:$REPO_PATH"
@@ -49,7 +45,7 @@ DISTRIBUTE=ddp
 
 
 # define OUTPUT directory
-OUTPUT_DIR_BASE=/userhome/xiaoya/outputs/dice_loss/squad/${TIME}
+OUTPUT_DIR_BASE=/userhome/xiaoya/outputs/dice_loss/squad
 OUTPUT_DIR=${OUTPUT_DIR_BASE}/${FILE_NAME}_${MODEL_SCALE}_${MAX_EPOCH}_${GRAD_CLIP}_${ACC_GRAD}_${WARMUP}_${OPTIMIZER}_${LR}_${BERT_DROPOUT}_${BATCH_SIZE}_${MAX_QUERY_LEN}_${MAX_SEQ_LEN}_${DOC_STRIDE}_${DICE_SMOOTH}_${DICE_OHEM}_${DICE_ALPHA}
 
 

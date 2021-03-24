@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# author: xiaoya li
-# contact: xiaoyalixy@gmail.com
 # file: ner_span_f1.py
 
 

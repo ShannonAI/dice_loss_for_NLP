@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# author: xiaoya li
 # file: query_map.py
 # ---------------------------------------------
 # query collections for different dataset

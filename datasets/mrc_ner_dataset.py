@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# author: xiaoya li
 # file: mrc_ner_dataset.py
-# contact: xiaoyalixy@gmail.com
 
 import json
 import torch

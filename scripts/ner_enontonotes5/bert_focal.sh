@@ -1,12 +1,7 @@
 #!/usr/bin/env bash
 # -*- coding: utf-8 -*-
 
-# author: xiaoya li
-# first create: 2021.02.02
-# file: train.sh
 
-
-TIME=2021.03.17
 FILE_NAME=brain_enonto_focal
 REPO_PATH=/userhome/xiaoya/mrc-with-dice-loss
 MODEL_SCALE=base
@@ -51,7 +46,7 @@ elif [[ ${LOSS_TYPE} == "dice" ]]; then
 fi
 echo "DEBUG INFO -> loss sign is ${LOSS_SIGN}"
 
-OUTPUT_BASE_DIR=/userhome/xiaoya/outputs/dice_loss/mrc_ner/${TIME}
+OUTPUT_BASE_DIR=/userhome/xiaoya/outputs/dice_loss/mrc_ner
 OUTPUT_DIR=${OUTPUT_BASE_DIR}/${FILE_NAME}_${MODEL_SCALE}_${TRAIN_BATCH_SIZE}_${MAX_LENGTH}_${LR}_${LR_SCHEDULE}_${BERT_DROPOUT}_${ACC_GRAD}_${MAX_EPOCH}_${GRAD_CLIP}_${WEIGHT_DECAY}_${WARMUP_PROPORTION}_${W_START}_${W_END}_${W_SPAN}_${LOSS_SIGN}
 
 mkdir -p ${OUTPUT_DIR}

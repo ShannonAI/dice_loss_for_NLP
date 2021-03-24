@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# author: xiaoya li
-# contact: xiaoyalixy@gmail.com
 # file: random_seed.py
 # refer to :
 # issue: https://github.com/PyTorchLightning/pytorch-lightning/issues/1868

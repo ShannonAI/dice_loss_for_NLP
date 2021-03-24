@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 # -*- coding: utf-8 -*-
 
-# author: xiaoya li
-# file: download_mrpc.sh
 # example:
 # bash scripts/prepare_mrpc_data.sh /data/xiaoya/outputs/debug
 

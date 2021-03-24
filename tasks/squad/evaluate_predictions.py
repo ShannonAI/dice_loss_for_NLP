@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# author: xiaoya li
-# contact: xiaoyalixy@gmail.com
-# first create: 2020.12.30
 # files: squad/evaluate_predictions.py
 # description:
 # evaluate the output prediction file

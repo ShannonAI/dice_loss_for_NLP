@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 # -*- coding: utf-8 -*-
 
-# author: xiaoya li
-# file: bert_base_focal.sh
-# first create: 2021.01.18
 # Result:
 #   - Dev f1/acc: 89.31/84.80
 #   - Test f1/acc: 88.06/83.59

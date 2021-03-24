@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# Author: xiaoya li
-# file: file_utils.py
 
 from tasks.mrc_ner.data_preprocess.label_utils import iob_iobes
 

@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-
-# author: xiaoya li
-# contact: xiaoyalixy@gmail.com
-# first create: 2020.12.24
 # file: postprocess_prediction.py
 # description:
 # code for postprocessing model outputs for SQuAD.

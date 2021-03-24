@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 # -*- coding: utf-8 -*-
 
-# author: xiaoya li
-# first update: 2021.01.09
-# file: bert_base_dice.sh
 
 REPO_PATH=/userhome/xiaoya/mrc-with-dice-loss
 export PYTHONPATH="$PYTHONPATH:$REPO_PATH"

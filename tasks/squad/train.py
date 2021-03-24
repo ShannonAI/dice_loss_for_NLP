@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# author: xiaoya li
-# contact: xiaoyalixy@gmail.com
-# first update: 2020.12.21
 # file: squad/train.py
 # description:
 # code for fine-tuning BERT on SQuAD task.

@@ -1,16 +1,12 @@
 #!/usr/bin/env bash
 # -*- coding: utf-8 -*-
 
-# author: xiaoya li
-# file: bert_base_dice.sh
-# first create: 2021.01.18
 # result:
 # Dev f1/acc: 90.42/86.03
 # Test f1/acc: 88.23/83.59
 # gpu4: /data/xiaoya/outputs/dice_loss/glue_mrpc/2021.01.24/dice_night8_base_dice_128_20_1_5_3e-5_linear_0.2_0.002_0.003
 
 
-TIME=2021.02.18
 FILE=reproduce_dice_bertbase
 MODEL_SCALE=base
 TASK=mrpc
@@ -41,7 +37,7 @@ VAL_CHECK_INTERVAL=0.25
 DISTRIBUTE=ddp
 GRAD_CLIP=1
 
-OUTPUT_DIR=${OUTPUT_BASE_DIR}/${TIME}/${FILE}_${MODEL_SCALE}_${LOSS_TYPE}_${MAX_SEQ_LEN}_${TRAIN_BATCH_SIZE}_${ACC_GRAD}_${MAX_EPOCH}_${LR}_${LR_SCHEDULER}_${DROPOUT}_${WARMUP_PROPORTION}_${WEIGHT_DECAY}
+OUTPUT_DIR=${OUTPUT_BASE_DIR}/${FILE}_${MODEL_SCALE}_${LOSS_TYPE}_${MAX_SEQ_LEN}_${TRAIN_BATCH_SIZE}_${ACC_GRAD}_${MAX_EPOCH}_${LR}_${LR_SCHEDULER}_${DROPOUT}_${WARMUP_PROPORTION}_${WEIGHT_DECAY}
 mkdir -p ${OUTPUT_DIR}
 CACHE_DIR=${OUTPUT_DIR}/cache
 mkdir -p ${CACHE_DIR}

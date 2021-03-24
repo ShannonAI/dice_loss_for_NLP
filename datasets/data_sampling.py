@@ -1,9 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# author: xiaoya li
-# file: data_sampling.py
-# contact: xiaoyalixy@gmail.com
 
 import random
 

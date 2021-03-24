@@ -1,10 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# author: xiaoya li
-# contact: xiaoyalixy@gmail.com
 # file: tnews_dataset.py
-# first create: 2021.02.08
 # Data Example:
 # {"label": "113", "label_desc": "news_world", "sentence": "日本虎视眈眈“武力夺岛”, 美军向俄后院开火，普京终不再忍！", "keywords": "普京,北方四岛,安倍,俄罗斯,黑海"}
 

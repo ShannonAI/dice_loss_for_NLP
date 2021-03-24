@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# author: xiaoya li
-# contact: xiaoyalixy@gmail.com
-# first update: 2020.12.21
 # file: model_config.py
 # description:
 # user defined configuration class for NLP tasks.

@@ -1,9 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# author: xiaoya li
-# contact: xiaoyalixy@gmail.com
-# first create: 2021.01.04
 # file name: mrpc_processor.py
 # description:
 # code for loading data samples from files.

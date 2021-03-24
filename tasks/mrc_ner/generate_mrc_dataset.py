@@ -1,9 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# Author: Xiaoy Li
-# description:
-# generate_mrc_dataset.py
 # transform data from sequence labeling to mrc formulation
 # ----------------------------------------------------------
 # input data structure

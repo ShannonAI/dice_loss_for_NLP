@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 # -*- coding: utf-8 -*-
 
-# author: xiaoya li
-# file: eval.sh
-#
 
 PRECISION=32
 FILE_NAME=eval_mrc_ner

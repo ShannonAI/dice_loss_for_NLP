@@ -1,10 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# author: xiaoya li
-# contact: xiaoyalixy@gmail.com
 # file: cls_acc_f1.py
-# first create: 2021.01.08
 # description:
 # compute acc and f1 scores for text classification task.
 

@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 # -*- coding: utf-8 -*-
 
-# author: xiaoya li
-# first create: 2021.01.12
 # file: scripts/glue/eval.sh
 
 

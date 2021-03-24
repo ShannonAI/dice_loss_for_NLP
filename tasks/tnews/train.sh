@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
 # -*- coding: utf-8 -*-
 
-# author: xiaoya li
-# first create: 2021.02.08
-# file: train.sh
-
 TIME=2021.02.08
 FILE_NAME=re_debug_tnews
 REPO_PATH=/data/xiaoya/workspace/mrc-with-dice-loss

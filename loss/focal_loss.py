@@ -1,14 +1,6 @@
-# encoding: utf-8
-"""
-@author: Yuxian Meng
-@contact: yuxian_meng@shannonai.com
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
-@version: 1.0
-@file: focal_loss
-@time: 2020/11/21 11:35
-@desc:
-
-"""
 
 from typing import List
 

@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
 # -*- coding: utf-8 -*-
 
-# author: xiaoya li
-# first create: 2021.02.02
-# file: train.sh
-
 TIME=2021.02.02
 FILE_NAME=debug_onto4
 REPO_PATH=/data/xiaoya/workspace/mrc-with-dice-loss

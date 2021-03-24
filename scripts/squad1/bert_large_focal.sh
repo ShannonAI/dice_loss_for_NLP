@@ -1,14 +1,7 @@
 #!/usr/bin/env bash
 # -*- coding: utf-8 -*-
 
-# author: xiaoya li
-# file: bert_large_focal.sh
-# first create: 2021.01.14
-# description:
-#
 
-
-TIME=2021.01.14
 FILE_NAME=focal_large
 REPO_PATH=/userhome/xiaoya/mrc-with-dice-loss
 export PYTHONPATH="$PYTHONPATH:$REPO_PATH"
@@ -35,7 +28,7 @@ DOC_STRIDE=128
 LOSS_TYPE=focal
 FOCAL_GAMMA=2
 
-OUTPUT_DIR_BASE=/userhome/xiaoya/outputs/dice_loss/squad/${TIME}
+OUTPUT_DIR_BASE=/userhome/xiaoya/outputs/dice_loss/squad
 OUTPUT_DIR=${OUTPUT_DIR_BASE}/${FILE_NAME}_${MAX_EPOCH}_${GRAD_CLIP}_${ACC_GRAD}_${WARMUP_PROPORTION}_${OPTIMIZER}_${LR}_${BERT_DROPOUT}_${WEIGHT_DECAY}_${BATCH_SIZE}_${MAX_QUERY_LEN}_${MAX_SEQ_LEN}_${DOC_STRIDE}_${FOCAL_GAMMA}
 
 echo "INFO -> OUTPUT_DIR is ${OUTPUT_DIR}"

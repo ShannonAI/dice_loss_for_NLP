@@ -1,16 +1,12 @@
 #!/usr/bin/env bash
 # -*- coding: utf-8 -*-
 
-# author: xiaoya li
-# file: bert_large_dice.sh
-# first create: 2021.01.18
 # result:
 #   - Dev f1/acc: 91.31/87.50
 #   - Test f1/acc: 88.98/84.64
 # gpu6: /data/xiaoya/outputs/dice_loss/glue_mrpc/2021.02.19/dice_large4_large_dice_128_12_1_5_2e-5_linear_0.1_0.06_0.001
 
 
-TIME=2021.02.19
 FILE=dice_large4
 MODEL_SCALE=large
 TASK=mrpc
@@ -43,7 +39,7 @@ VAL_CHECK_INTERVAL=0.25
 DISTRIBUTE=ddp
 GRAD_CLIP=1
 
-OUTPUT_DIR=${OUTPUT_BASE_DIR}/${TIME}/${FILE}_${MODEL_SCALE}_${LOSS_TYPE}_${MAX_SEQ_LEN}_${TRAIN_BATCH_SIZE}_${ACC_GRAD}_${MAX_EPOCH}_${LR}_${LR_SCHEDULER}_${DROPOUT}_${WARMUP_PROPORTION}_${WEIGHT_DECAY}
+OUTPUT_DIR=${OUTPUT_BASE_DIR}/${FILE}_${MODEL_SCALE}_${LOSS_TYPE}_${MAX_SEQ_LEN}_${TRAIN_BATCH_SIZE}_${ACC_GRAD}_${MAX_EPOCH}_${LR}_${LR_SCHEDULER}_${DROPOUT}_${WARMUP_PROPORTION}_${WEIGHT_DECAY}
 mkdir -p ${OUTPUT_DIR}
 CACHE_DIR=${OUTPUT_DIR}/cache
 mkdir -p ${CACHE_DIR}

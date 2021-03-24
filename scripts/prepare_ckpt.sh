@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 # -*- coding: utf-8 -*-
 
-# author: xiaoya li
-# first create: 2021.01.04
-# file: prepare_ckpt.sh
 # description:
 # NOTICE:
 # Please make sure tensorflow

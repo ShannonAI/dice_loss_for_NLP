@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 # -*- coding: utf-8 -*-
 
-# Author: xiaoya li
 # description:
 # download pretrained model ckpt
 

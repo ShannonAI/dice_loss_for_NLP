@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# author: xiaoya li
-# contact: xiaoyalixy@gmail.com
-# first update: 2020.12.23
 # file: bert_qa.py
 # description:
 # BERT for question answering task.

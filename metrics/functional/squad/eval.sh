@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 # -*- coding: utf-8 -*-
 
-# author: xiaoya li
-# contact: xiaoyalixy@gmail.com
-# first create: 2020.12.30
 # file: eval.sh
 # description:
 # bash for evaluate prediction files.
