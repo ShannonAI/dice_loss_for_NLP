@@ -1,6 +1,16 @@
 # Dice Loss for NLP Tasks
 
-This repository contains code for [Dice Loss for Data-imbalanced NLP Tasks](https://arxiv.org/pdf/1911.02855.pdf). 
+This repository contains code for [Dice Loss for Data-imbalanced NLP Tasks](https://arxiv.org/pdf/1911.02855.pdf) at ACL2019. 
+
+```latex
+@article{li2019dice,
+  title={Dice loss for data-imbalanced NLP tasks},
+  author={Li, Xiaoya and Sun, Xiaofei and Meng, Yuxian and Liang, Junjun and Wu, Fei and Li, Jiwei},
+  journal={arXiv preprint arXiv:1911.02855},
+  year={2019}
+}
+```
+
 
 ## Setup
 
