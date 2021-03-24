@@ -139,7 +139,7 @@ CUDA_VISIBLE_DEVICES=0 python3 ${REPO_PATH}/tasks/mrc_ner/evaluate.py \
 
 If you find this repository useful , please cite the following: 
 
-```tex 
+```
 @inproceedings{li-etal-2020-dice,
     title = "Dice Loss for Data-imbalanced {NLP} Tasks",
     author = "Li, Xiaoya  and
