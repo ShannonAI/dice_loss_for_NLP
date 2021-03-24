@@ -1,0 +1,48 @@
+# encoding: utf-8
+"""
+@author: Yuxian Meng
+@contact: yuxian_meng@shannonai.com
+
+@version: 1.0
+@file: collate_functions
+@time: 2020/6/17 19:18
+
+    collate functions
+"""
+
+import torch
+from typing import List
+
+
+def collate_to_max_length(batch: List[List[torch.Tensor]]) -> List[torch.Tensor]:
+    """
+    pad to maximum length of this batch
+    Args:
+        batch: a batch of samples, each contains a list of field data(Tensor):
+            tokens, attention_mask, token_type_ids, start_labels, end_labels, start_label_mask, end_label_mask, match_labels, label_idx
+    Returns:
+        output: list of field batched data, which shape is [batch, max_length]
+    """
+    batch_size = len(batch)
+    max_length = max(x[0].shape[0] for x in batch)
+    output = []
+
+    for field_idx in range(7):
+        pad_output = torch.full([batch_size, max_length], 0, dtype=batch[0][field_idx].dtype)
+        for sample_idx in range(batch_size):
+            data = batch[sample_idx][field_idx]
+            pad_output[sample_idx][: data.shape[0]] = data
+        output.append(pad_output)
+
+    pad_match_labels = torch.zeros([batch_size, max_length, max_length], dtype=torch.long)
+    for sample_idx in range(batch_size):
+        data = batch[sample_idx][7]
+        pad_match_labels[sample_idx, : data.shape[1], : data.shape[1]] = data
+    output.append(pad_match_labels)
+    output.append(torch.stack([x[8] for x in batch]))
+    if len(batch[0]) == 9:
+        return output
+
+    output.append(torch.stack([x[9] for x in batch]))
+    return output
+
