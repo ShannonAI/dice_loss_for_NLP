@@ -8,7 +8,7 @@ MODEL_SCALE=base
 DATA_DIR=/data/xiaoya/datasets/tnews_public_data
 BERT_DIR=/data/xiaoya/pretrain_lm/chinese_L-12_H-768_A-12
 
-TRAIN_BATCH_SIZE=26
+TRAIN_BATCH_SIZE=36
 EVAL_BATCH_SIZE=12
 MAX_LENGTH=128
 

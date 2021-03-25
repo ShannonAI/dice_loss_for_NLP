@@ -112,9 +112,9 @@ The variable `<ner-dataset-name>` should take the value of `[ner_enontonotes5, n
 The variable `<loss-type>` should take the value of `[focal, dice]` which denotes fine-tuning `BERT` with `focal loss`, `dice loss` , respectively. 
 
 For Chinese MSRA, <br>
-* Run `scripts/ner_zhmsra/bert_focal.sh` will get 95.62 Span-F1 on the test set. <br> 
+* Run `scripts/ner_zhmsra/bert_focal.sh`. After training, you will get 95.62 Span-F1 on the test set. <br> 
 
-* Run `scripts/ner_zhmsra/bert_dice.sh` will get 96.52 Span-F1 on the test set. <br>
+* Run `scripts/ner_zhmsra/bert_dice.sh`. After training, you will get 96.52 Span-F1 on the test set. <br>
 
 For Chinese OntoNotes4, <br>
 * Run `scripts/ner_zhonto4/bert_focal.sh`. After training, you will get 83.19 Span-F1  on the test set. <br> 
@@ -122,9 +122,9 @@ For Chinese OntoNotes4, <br>
 * Run `scripts/ner_zhonto4/bert_dice.sh`. After training, you will get 84.40 Span-F1  on the test set. <br>
 
 For English OntoNotes5, <br>
-* Run `scripts/ner_enontonotes5/bert_large_focal.sh` will get 91.12 Span-F1  on the test set.  <br> 
+* Run `scripts/ner_enontonotes5/bert_focal.sh`. After training, you will get 91.12 Span-F1  on the test set.  <br> 
 
-* Run `scripts/ner_enontonotes5/bert_large_dice.sh` will get 92.01 Span-F1  on the test set. <br>
+* Run `scripts/ner_enontonotes5/bert_dice.sh`. After training, you will get 92.01 Span-F1  on the test set. <br>
 
 ***Evaluate*** <br>
 
