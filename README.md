@@ -160,22 +160,11 @@ The intermediate model checkpoints are saved at most `$max_keep_ckpt` times.
 If you find this repository useful , please cite the following: 
 
 ```tex 
-@inproceedings{li-etal-2020-dice,
-    title = "Dice Loss for Data-imbalanced {NLP} Tasks",
-    author = "Li, Xiaoya  and
-      Sun, Xiaofei  and
-      Meng, Yuxian  and
-      Liang, Junjun  and
-      Wu, Fei  and
-      Li, Jiwei",
-    booktitle = "Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics",
-    month = jul,
-    year = "2020",
-    address = "Online",
-    publisher = "Association for Computational Linguistics",
-    url = "https://www.aclweb.org/anthology/2020.acl-main.45",
-    doi = "10.18653/v1/2020.acl-main.45",
-    pages = "465--476",
+@article{li2019dice,
+  title={Dice loss for data-imbalanced NLP tasks},
+  author={Li, Xiaoya and Sun, Xiaofei and Meng, Yuxian and Liang, Junjun and Wu, Fei and Li, Jiwei},
+  journal={arXiv preprint arXiv:1911.02855},
+  year={2019}
 }
 ```
 
