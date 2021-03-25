@@ -46,9 +46,9 @@ Run `scripts/squad1/bert_<model-scale>_<loss-type>.sh` to reproduce our experime
 The variable `<model-scale>` should take the value of `[base, large]`. <br> 
 The variable `<loss-type>` should take the value of `[bce, focal, dice]` which denotes fine-tuning `BERT-Base` with `binary cross entropy loss`, `focal loss`, `dice loss` , respectively. <br> 
 
-* Run `bash scripts/squad1/bert_base_focal.sh` to start training. After training, run `bash scripts/squad1/eval_pred_file.sh $DATA_DIR $OUTPUT_DIR` and you will get `Exact-Match = 81.08` and `F1 = 88.49`. <br>
+* Run `bash scripts/squad1/bert_base_focal.sh` to start training. After training, run `bash scripts/squad1/eval_pred_file.sh $DATA_DIR $OUTPUT_DIR` for focal loss. <br>
 
-* Run `bash scripts/squad1/bert_base_dice.sh` to start training. After training, run `bash scripts/squad1/eval_pred_file.sh $DATA_DIR $OUTPUT_DIR` and you will get `Exact-Match = 81.64` and `F1 = 88.73`. <br>
+* Run `bash scripts/squad1/bert_base_dice.sh` to start training. After training, run `bash scripts/squad1/eval_pred_file.sh $DATA_DIR $OUTPUT_DIR` for dice loss. <br>
 
 
 ***Evaluate*** <br>
@@ -83,9 +83,9 @@ After training, the task trainer evaluates on the test set with the best checkpo
 The variable `<model-scale>` should take the value of `[base, large]`. <br> 
 The variable `<loss-type>` should take the value of `[focal, dice]` which denotes fine-tuning `BERT` with `focal loss`, `dice loss` , respectively. 
 
-* Run `bash scripts/glue_mrpc/bert_large_focal.sh`. After training, you will get 88.35 F1 score on the test set. <br>
+* Run `bash scripts/glue_mrpc/bert_large_focal.sh` for focal loss. <br>
 
-* Run `bash scripts/glue_mrpc/bert_large_dice.sh`. After training, you will get 88.85 F1 score on the test set. <br>
+* Run `bash scripts/glue_mrpc/bert_large_dice.sh` for dice loss. <br>
 
 The evaluation results on the dev and test set are saved at `$OUTPUT_DIR/eval_result_log.txt` file. <br> 
 The intermediate model checkpoints are saved at most `$max_keep_ckpt` times. 
@@ -112,14 +112,14 @@ The variable `<ner-dataset-name>` should take the value of `[ner_enontonotes5, n
 The variable `<loss-type>` should take the value of `[focal, dice]` which denotes fine-tuning `BERT` with `focal loss`, `dice loss` , respectively. 
 
 For Chinese MSRA, <br>
-* Run `scripts/ner_zhmsra/bert_focal.sh`. After training, you will get 95.62 Span-F1 on the test set. <br> 
+* Run `scripts/ner_zhmsra/bert_focal.sh` for focal loss. <br> 
 
-* Run `scripts/ner_zhmsra/bert_dice.sh`. After training, you will get 96.52 Span-F1 on the test set. <br>
+* Run `scripts/ner_zhmsra/bert_dice.sh` for dice loss. <br>
 
 For Chinese OntoNotes4, <br>
-* Run `scripts/ner_zhonto4/bert_focal.sh`. After training, you will get 83.19 Span-F1  on the test set. <br> 
+* Run `scripts/ner_zhonto4/bert_focal.sh` for focal loss. <br> 
 
-* Run `scripts/ner_zhonto4/bert_dice.sh`. After training, you will get 84.40 Span-F1  on the test set. <br>
+* Run `scripts/ner_zhonto4/bert_dice.sh` for dice loss. <br>
 
 For English OntoNotes5, <br>
 * Run `scripts/ner_enontonotes5/bert_focal.sh`. After training, you will get 91.12 Span-F1  on the test set.  <br> 
@@ -148,9 +148,9 @@ We choose BERT as the backbone. <br>
 Please run `scripts/tnews/bert_<loss-type>.sh` to train and evaluate on the dev set every `$val_check_interval` epoch.
 The variable `<loss-type>` should take the value of `[focal, dice]` which denotes fine-tuning `BERT` with `focal loss`, `dice loss` , respectively. 
 
-* Run `bash scripts/tnews/bert_focal.sh`. After training, you will get 56.18 ACC, 55.17 F1 scores on the dev set. <br>
+* Run `bash scripts/tnews/bert_focal.sh` for focal loss.<br>
 
-* Run `bash scripts/tnews/bert_dice.sh`. After training, you will get 56.62 ACC, 55.68 F1 scores on the dev set. <br>
+* Run `bash scripts/tnews/bert_dice.sh` for dice loss. <br>
 
 The intermediate model checkpoints are saved at most `$max_keep_ckpt` times. 
 
