@@ -1,6 +1,6 @@
 # Dice Loss for NLP Tasks
 
-This repository contains code for [Dice Loss for Data-imbalanced NLP Tasks](https://arxiv.org/pdf/1911.02855.pdf) at ACL19. 
+This repository contains code for [Dice Loss for Data-imbalanced NLP Tasks](https://arxiv.org/pdf/1911.02855.pdf) at ACL2020. 
 
 ## Setup
 
