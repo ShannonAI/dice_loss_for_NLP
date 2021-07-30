@@ -5,27 +5,28 @@
 # first create: 2021.02.02
 # file: train.sh
 
-TIME=2021.07.23
-FILE_NAME=enconll03_dice
+
+TIME=2021.07.29
+FILE_NAME=enconll_dice
 REPO_PATH=/userhome/xiaoya/mrc-with-dice-loss
 MODEL_SCALE=large
 DATA_DIR=/userhome/xiaoya/dataset/en_conll03
 BERT_DIR=/userhome/xiaoya/bert/bert_cased_large
 
-TRAIN_BATCH_SIZE=16
+TRAIN_BATCH_SIZE=36
 EVAL_BATCH_SIZE=1
 MAX_LENGTH=256
 
 OPTIMIZER=torch.adam
 LR_SCHEDULE=polydecay
-LR=2e-5
+LR=3e-5
 
 BERT_DROPOUT=0.2
-ACC_GRAD=4
+ACC_GRAD=8
 MAX_EPOCH=10
 GRAD_CLIP=1.0
-WEIGHT_DECAY=0.002
-WARMUP_PROPORTION=0.06
+WEIGHT_DECAY=0.01
+WARMUP_PROPORTION=0.01
 
 LOSS_TYPE=dice
 W_START=1
@@ -55,7 +56,7 @@ OUTPUT_DIR=${OUTPUT_BASE_DIR}/${FILE_NAME}_${MODEL_SCALE}_${TRAIN_BATCH_SIZE}_${
 
 mkdir -p ${OUTPUT_DIR}
 
-CUDA_VISIBLE_DEVICES=1 python ${REPO_PATH}/tasks/mrc_ner/train.py \
+CUDA_VISIBLE_DEVICES=0 python ${REPO_PATH}/tasks/mrc_ner/train.py \
 --gpus="1" \
 --precision=${PRECISION} \
 --train_batch_size ${TRAIN_BATCH_SIZE} \
@@ -88,6 +89,6 @@ CUDA_VISIBLE_DEVICES=1 python ${REPO_PATH}/tasks/mrc_ner/train.py \
 --construct_entity_span start_and_end \
 --flat_ner \
 --pred_answerable \
---answerable_task_ratio 0.2 \
+--answerable_task_ratio 0.4 \
 --activate_func relu \
 --data_sign en_conll03

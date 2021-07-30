@@ -10,7 +10,7 @@ FILE_NAME=enconll03_focal
 REPO_PATH=/userhome/xiaoya/mrc-with-dice-loss
 MODEL_SCALE=large
 DATA_DIR=/userhome/xiaoya/dataset/en_conll03
-BERT_DIR=/userhome/xiaoya/bert/bert_cased_large
+BERT_DIR=/userhome/xiaoya/bert/bert-large-cased
 
 TRAIN_BATCH_SIZE=18
 EVAL_BATCH_SIZE=1
