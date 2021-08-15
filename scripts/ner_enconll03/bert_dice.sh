@@ -15,18 +15,18 @@ BERT_DIR=/userhome/xiaoya/bert/bert_cased_large
 
 TRAIN_BATCH_SIZE=36
 EVAL_BATCH_SIZE=1
-MAX_LENGTH=256
+MAX_LENGTH=220
 
-OPTIMIZER=torch.adam
+OPTIMIZER=adamw
 LR_SCHEDULE=polydecay
-LR=3e-5
+LR=4e-5
 
-BERT_DROPOUT=0.2
+BERT_DROPOUT=0.3
 ACC_GRAD=8
-MAX_EPOCH=10
+MAX_EPOCH=15
 GRAD_CLIP=1.0
 WEIGHT_DECAY=0.01
-WARMUP_PROPORTION=0.01
+WARMUP_PROPORTION=0.03
 
 LOSS_TYPE=dice
 W_START=1
@@ -39,7 +39,7 @@ FOCAL_GAMMA=2
 
 PRECISION=16
 PROGRESS_BAR=1
-VAL_CHECK_INTERVAL=0.25
+VAL_CHECK_INTERVAL=0.2
 export PYTHONPATH="$PYTHONPATH:$REPO_PATH"
 
 if [[ ${LOSS_TYPE} == "bce" ]]; then
@@ -89,6 +89,6 @@ CUDA_VISIBLE_DEVICES=0 python ${REPO_PATH}/tasks/mrc_ner/train.py \
 --construct_entity_span start_and_end \
 --flat_ner \
 --pred_answerable \
---answerable_task_ratio 0.4 \
+--answerable_task_ratio 0.5 \
 --activate_func relu \
 --data_sign en_conll03
