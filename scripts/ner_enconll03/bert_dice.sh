@@ -15,15 +15,15 @@ BERT_DIR=/userhome/xiaoya/bert/bert_cased_large
 
 TRAIN_BATCH_SIZE=36
 EVAL_BATCH_SIZE=1
-MAX_LENGTH=220
+MAX_LENGTH=280
 
 OPTIMIZER=torch.adam
 LR_SCHEDULE=polydecay
-LR=4e-5
+LR=3e-5
 
 BERT_DROPOUT=0.2
 ACC_GRAD=8
-MAX_EPOCH=12
+MAX_EPOCH=10
 GRAD_CLIP=1.0
 WEIGHT_DECAY=0.01
 WARMUP_PROPORTION=0.01
@@ -31,7 +31,7 @@ WARMUP_PROPORTION=0.01
 LOSS_TYPE=dice
 W_START=1
 W_END=1
-W_SPAN=0
+W_SPAN=0.4
 DICE_SMOOTH=1
 DICE_OHEM=0.0
 DICE_ALPHA=0.01
@@ -89,6 +89,6 @@ CUDA_VISIBLE_DEVICES=0 python ${REPO_PATH}/tasks/mrc_ner/train.py \
 --construct_entity_span start_and_end \
 --flat_ner \
 --pred_answerable \
---answerable_task_ratio 0.5 \
+--answerable_task_ratio 0.4 \
 --activate_func relu \
 --data_sign en_conll03
