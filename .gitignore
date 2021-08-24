@@ -1,9 +1,9 @@
 # Xcode
 *.DS_Store
-
+.idea/*
 # Logs
 logs/*
-
+tasks/pos/*
 #
 experiments/*
 log/*
