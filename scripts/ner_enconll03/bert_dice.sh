@@ -6,16 +6,16 @@
 # file: train.sh
 
 
-TIME=2021.07.29
+TIME=2021.08.24
 FILE_NAME=enconll_dice
-REPO_PATH=/userhome/xiaoya/mrc-with-dice-loss
+REPO_PATH=/userhome/xiaoya/dice_loss_for_NLP
 MODEL_SCALE=large
 DATA_DIR=/userhome/xiaoya/dataset/en_conll03
 BERT_DIR=/userhome/xiaoya/bert/bert_cased_large
 
 TRAIN_BATCH_SIZE=36
 EVAL_BATCH_SIZE=1
-MAX_LENGTH=280
+MAX_LENGTH=256
 
 OPTIMIZER=torch.adam
 LR_SCHEDULE=polydecay
@@ -31,7 +31,7 @@ WARMUP_PROPORTION=0.01
 LOSS_TYPE=dice
 W_START=1
 W_END=1
-W_SPAN=0.4
+W_SPAN=0.3
 DICE_SMOOTH=1
 DICE_OHEM=0.0
 DICE_ALPHA=0.01
@@ -39,7 +39,7 @@ FOCAL_GAMMA=2
 
 PRECISION=16
 PROGRESS_BAR=1
-VAL_CHECK_INTERVAL=0.2
+VAL_CHECK_INTERVAL=0.25
 export PYTHONPATH="$PYTHONPATH:$REPO_PATH"
 
 if [[ ${LOSS_TYPE} == "bce" ]]; then

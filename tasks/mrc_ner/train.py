@@ -330,7 +330,7 @@ class BertForNERTask(pl.LightningModule):
                 total_loss = weight_start * start_loss + weight_end * end_loss + weight_span * match_loss
         else:
             match_loss = 0
-            total_loss = start_loss + end_loss
+            total_loss = self.args.weight_start * start_loss + self.args.weight_end * end_loss
 
         if cls_answerable_loss is not None:
             total_loss = cls_answerable_loss * self.args.answerable_task_ratio + total_loss
