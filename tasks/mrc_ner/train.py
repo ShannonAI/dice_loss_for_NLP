@@ -64,7 +64,7 @@ class BertForNERTask(pl.LightningModule):
                                                             num_labels=self.args.num_labels,
                                                             hidden_dropout_prob=self.args.bert_hidden_dropout,
                                                             construct_entity_span=self.args.construct_entity_span,
-                                                            pred_answerable=self.args.pred_answerable,
+                                                            pred_answerable=True if "train" in self.args.pred_answerable else False,
                                                             activate_func=self.args.activate_func)
         print(f"DEBUG INFO -> pred_answerable {self.args.pred_answerable}")
         print(f"DEBUG INFO -> check bert_config \n {bert_config}")
@@ -92,9 +92,9 @@ class BertForNERTask(pl.LightningModule):
         parser.add_argument("--loss_dynamic", action="store_true")
         parser.add_argument("--answerable_only", action="store_true")
         parser.add_argument("--negative_sampling", action="store_true")
-        parser.add_argument("--pred_answerable", action="store_true")
         parser.add_argument("--answerable_task_ratio", type=float, default=0.2)
         parser.add_argument("--activate_func", type=str, default="gelu")
+        parser.add_argument("--pred_answerable", type=str, default="train_infer", choices=["train_infer", "train", "null"])
         return parser
 
     def configure_optimizers(self,):
@@ -159,7 +159,7 @@ class BertForNERTask(pl.LightningModule):
         match_label_row_mask = start_label_mask.bool().unsqueeze(-1).expand(-1, -1, seq_len)
         match_label_col_mask = end_label_mask.bool().unsqueeze(-2).expand(-1, seq_len, -1)
         match_label_mask = match_label_row_mask & match_label_col_mask
-        # torch.triu -> returns the upper triangular part of a matrix or batch of matrces input,
+        # torch.triu -> returns the upper triangular part of n matrix or batch of matrces input,
         # the other elements of the result tensor are set to 0.
         # an named entity should have the start position which is smaller or equal to the end position.
         match_label_mask = torch.triu(match_label_mask, 0)  # start should be less equal to end
@@ -296,13 +296,14 @@ class BertForNERTask(pl.LightningModule):
 
         if answerable_loss is not None:
             return start_loss, end_loss, match_loss, answerable_loss
+
         return start_loss, end_loss, match_loss
 
     def training_step(self, batch, batch_idx):
         tf_board_logs = {
             "lr": self.trainer.optimizers[0].param_groups[0]['lr']
         }
-        if self.args.pred_answerable:
+        if "train" in self.args.pred_answerable:
             tokens, attention_mask, token_type_ids, start_labels, end_labels, start_label_mask, end_label_mask, match_labels, label_idx, answerable_label = batch
             start_logits, end_logits, span_logits, cls_logits = self(tokens, attention_mask, token_type_ids)
             start_loss, end_loss, match_loss, cls_answerable_loss = self.compute_loss(start_logits=start_logits, end_logits=end_logits,
@@ -345,10 +346,13 @@ class BertForNERTask(pl.LightningModule):
     def validation_step(self, batch, batch_idx):
         output = {}
 
-        if self.args.pred_answerable:
+        if "train" in self.args.pred_answerable :
             tokens, attention_mask, token_type_ids, start_labels, end_labels, start_label_mask, end_label_mask, match_labels, label_idx, answerable_label = batch
             start_logits, end_logits, span_logits, cls_logits = self(tokens, attention_mask, token_type_ids)
-            cls_answerable_pred = torch.squeeze(torch.sigmoid(cls_logits) > 0.5, dim=-1)
+            if "infer" in self.args.pred_answerable :
+                cls_answerable_pred = torch.squeeze(torch.sigmoid(cls_logits) > 0.5, dim=-1)
+            else:
+                cls_answerable_pred = None
         else:
             tokens, attention_mask, token_type_ids, start_labels, end_labels, start_label_mask, end_label_mask, match_labels, label_idx = batch
             start_logits, end_logits, span_logits = self(tokens, attention_mask, token_type_ids)
@@ -392,14 +396,17 @@ class BertForNERTask(pl.LightningModule):
 
     def test_step(self, batch, batch_idx, use_answerable=True):
         output = {}
-        if self.args.pred_answerable:
+        if self.args.pred_answerable == "train_infer":
             tokens, attention_mask, token_type_ids, start_labels, end_labels, start_label_mask, end_label_mask, match_labels, label_idx, answerable_label = batch
             start_logits, end_logits, span_logits, cls_logits = self(tokens, attention_mask, token_type_ids)
-            cls_answerable_pred = torch.squeeze(torch.sigmoid(cls_logits) > 0.5, dim=-1)
+            if "infer" in self.args.pred_answerable:
+                cls_answerable_pred = torch.squeeze(torch.sigmoid(cls_logits) > 0.5, dim=-1)
+            else:
+                cls_answerable_pred = None
         else:
             tokens, attention_mask, token_type_ids, start_labels, end_labels, start_label_mask, end_label_mask, match_labels, label_idx = batch
             start_logits, end_logits, span_logits = self(tokens, attention_mask, token_type_ids)
-            cls_answerable_pred=None
+            cls_answerable_pred = None
 
         logits_size = start_logits.shape[-1]
         if logits_size == 1:
@@ -454,7 +461,7 @@ class BertForNERTask(pl.LightningModule):
                                 pad_to_maxlen=False, negative_sampling=self.args.negative_sampling,
                                 prefix=prefix, data_sign=self.args.data_sign,
                                 do_lower_case=self.args.do_lower_case,
-                                pred_answerable=self.args.pred_answerable)
+                                pred_answerable=True if "train" in self.args.pred_answerable else False)
 
         if limit is not None:
             dataset = TruncateDataset(dataset, limit)

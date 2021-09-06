@@ -31,7 +31,7 @@ def get_parser() -> argparse.ArgumentParser:
     parser.add_argument("--warmup_proportion", default=0.1, type=float, help="Proportion of training to perform linear learning rate warmup for.")
     parser.add_argument("--adam_epsilon", default=1e-6, type=float,
                         help="Epsilon for Adam optimizer.")
-    parser.add_argument("--max_keep_ckpt", default=20, type=int,
+    parser.add_argument("--max_keep_ckpt", default=3, type=int,
                         help="the number of keeping ckpt max.")
     parser.add_argument("--output_dir", default="/data", type=str, help="the directory to save model outputs")
     parser.add_argument("--debug", action="store_true", help="train with 10 data examples in the debug mode.")

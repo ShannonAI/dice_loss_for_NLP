@@ -26,8 +26,13 @@ from pytorch_lightning.callbacks.model_checkpoint import ModelCheckpoint
 
 from loss.focal_loss import FocalLoss
 from loss.dice_loss import DiceLoss
+# for mrpc
 from datasets.mrpc_dataset import MRPCDataset
 from datasets.mrpc_processor import MRPCProcessor
+# for qqp
+from datasets.qqp_dataset import QQPDataset
+from datasets.qqp_processor import QQPProcessor
+
 from datasets.truncate_dataset import TruncateDataset
 from metrics.classification_acc_f1 import ClassificationF1Metric
 from utils.get_parser import get_parser
@@ -56,7 +61,15 @@ class BertForGLUETask(pl.LightningModule):
         self.debug = args.debug
         self.train_batch_size = self.args.train_batch_size
         self.eval_batch_size = self.args.eval_batch_size
-        self.num_classes = len(MRPCProcessor.get_labels()) if self.loss_type != "dice" else 1
+        if self.args.task_name == "mrpc":
+            self.num_classes = len(MRPCProcessor.get_labels()) if self.loss_type != "dice" else 1
+            self.metric_accuracy = pl.metrics.Accuracy(num_classes=len(MRPCProcessor.get_labels()))
+        elif self.args.task_name == "qqp":
+            self.num_classes = len(QQPProcessor.get_labels()) if self.loss_type != "dice" else 1
+            self.metric_accuracy = pl.metrics.Accuracy(num_classes=len(QQPProcessor.get_labels()))
+        else:
+            raise ValueError("the value of task_name should in the range of [mrpc, qqp]")
+
         bert_config = BertForSequenceClassificationConfig.from_pretrained(self.model_path,
                                                                           num_labels=self.num_classes,
                                                                           hidden_dropout_prob=self.args.bert_hidden_dropout,)
@@ -71,18 +84,15 @@ class BertForGLUETask(pl.LightningModule):
         self.result_logger.info(str(args.__dict__ if isinstance(args, argparse.ArgumentParser) else args))
 
         self.metric_f1 = ClassificationF1Metric(num_classes=self.num_classes)
-        self.metric_accuracy = pl.metrics.Accuracy(num_classes=len(MRPCProcessor.get_labels()))
         self.num_gpus = 1
 
     @staticmethod
     def add_model_specific_args(parent_parser):
         parser = argparse.ArgumentParser(parents=[parent_parser], add_help=False)
-
         # config of data
-        parser.add_argument("--task_name", type=str, default="mrpc", help=" The name of the task to  train.")
+        parser.add_argument("--task_name", type=str, default="mrpc", choices=["mrpc", "qqp"], help="The name of the task")
         parser.add_argument("--max_seq_length", type=int, default=128, help="The maximum total input sequence length after tokenization. Sequence longer than this will be truncated, sequences shorter will be padded.")
         parser.add_argument("--pad_to_max_length", action="store_false", help="Whether to pad all samples to ' max_seq_length'.")
-
         return parser
 
     def configure_optimizers(self,):
@@ -238,7 +248,12 @@ class BertForGLUETask(pl.LightningModule):
 
     def get_dataloader(self, prefix="train", limit: int = None):
         """read vocab and dataset files"""
-        dataset = MRPCDataset(self.args, self.tokenizer, mode=prefix)
+        if self.args.task_name == "mrpc":
+            dataset = MRPCDataset(self.args, self.tokenizer, mode=prefix)
+        elif self.args.task_name == "qqp":
+            dataset = QQPDataset(self.args, self.tokenizer, mode=prefix)
+        else:
+            raise ValueError("task_name should take the value of [mrpc, qqp]")
         if limit is not None:
             dataset = TruncateDataset(dataset, limit)
         if prefix == "train":

@@ -88,7 +88,7 @@ CUDA_VISIBLE_DEVICES=0 python ${REPO_PATH}/tasks/mrc_ner/train.py \
 --span_loss_candidates gold_pred_random \
 --construct_entity_span start_and_end \
 --flat_ner \
---pred_answerable \
+--pred_answerable "train_infer" \
 --answerable_task_ratio 0.4 \
 --activate_func relu \
 --data_sign en_conll03

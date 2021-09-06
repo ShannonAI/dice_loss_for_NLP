@@ -8,13 +8,10 @@ that a question is unanswerable.
 import argparse
 import collections
 import json
-import numpy as np
 import os
 import re
 import string
 import sys
-
-OPTS = None
 
 def parse_args():
   parser = argparse.ArgumentParser('Official evaluation script for SQuAD version 2.0.')
@@ -129,19 +126,8 @@ def merge_eval(main_eval, new_eval, prefix):
   for k in new_eval:
     main_eval['%s_%s' % (prefix, k)] = new_eval[k]
 
-def plot_pr_curve(precisions, recalls, out_image, title):
-  plt.step(recalls, precisions, color='b', alpha=0.2, where='post')
-  plt.fill_between(recalls, precisions, step='post', alpha=0.2, color='b')
-  plt.xlabel('Recall')
-  plt.ylabel('Precision')
-  plt.xlim([0.0, 1.05])
-  plt.ylim([0.0, 1.05])
-  plt.title(title)
-  plt.savefig(out_image)
-  plt.clf()
 
-def make_precision_recall_eval(scores, na_probs, num_true_pos, qid_to_has_ans,
-                               out_image=None, title=None):
+def make_precision_recall_eval(scores, na_probs, num_true_pos, qid_to_has_ans, out_image=None, title=None):
   qid_list = sorted(na_probs, key=lambda k: na_probs[k])
   true_pos = 0.0
   cur_p = 1.0
@@ -159,8 +145,6 @@ def make_precision_recall_eval(scores, na_probs, num_true_pos, qid_to_has_ans,
       avg_prec += cur_p * (cur_r - recalls[-1])
       precisions.append(cur_p)
       recalls.append(cur_r)
-  if out_image:
-    plot_pr_curve(precisions, recalls, out_image, title)
   return {'ap': 100.0 * avg_prec}
 
 def run_precision_recall_analysis(main_eval, exact_raw, f1_raw, na_probs,
@@ -187,17 +171,6 @@ def run_precision_recall_analysis(main_eval, exact_raw, f1_raw, na_probs,
   merge_eval(main_eval, pr_f1, 'pr_f1')
   merge_eval(main_eval, pr_oracle, 'pr_oracle')
 
-def histogram_na_prob(na_probs, qid_list, image_dir, name):
-  if not qid_list:
-    return
-  x = [na_probs[k] for k in qid_list]
-  weights = np.ones_like(x) / float(len(x))
-  plt.hist(x, weights=weights, bins=20, range=(0.0, 1.0))
-  plt.xlabel('Model probability of no-answer')
-  plt.ylabel('Proportion of dataset')
-  plt.title('Histogram of no-answer probability: %s' % name)
-  plt.savefig(os.path.join(image_dir, 'na_prob_hist_%s.png' % name))
-  plt.clf()
 
 def find_best_thresh(preds, scores, na_probs, qid_to_has_ans):
   num_no_ans = sum(1 for k in qid_to_has_ans if not qid_to_has_ans[k])
@@ -228,14 +201,14 @@ def find_all_best_thresh(main_eval, preds, exact_raw, f1_raw, na_probs, qid_to_h
   main_eval['best_f1'] = best_f1
   main_eval['best_f1_thresh'] = f1_thresh
 
-def main():
-  with open(OPTS.data_file) as f:
+def evaluate(data_file, pred_file, na_prob_file, na_prob_thresh, out_file ):
+  with open(data_file) as f:
     dataset_json = json.load(f)
     dataset = dataset_json['data']
-  with open(OPTS.pred_file) as f:
+  with open(pred_file) as f:
     preds = json.load(f)
-  if OPTS.na_prob_file:
-    with open(OPTS.na_prob_file) as f:
+  if na_prob_file:
+    with open(na_prob_file) as f:
       na_probs = json.load(f)
   else:
     na_probs = {k: 0.0 for k in preds}
@@ -243,10 +216,8 @@ def main():
   has_ans_qids = [k for k, v in qid_to_has_ans.items() if v]
   no_ans_qids = [k for k, v in qid_to_has_ans.items() if not v]
   exact_raw, f1_raw = get_raw_scores(dataset, preds)
-  exact_thresh = apply_no_ans_threshold(exact_raw, na_probs, qid_to_has_ans,
-                                        OPTS.na_prob_thresh)
-  f1_thresh = apply_no_ans_threshold(f1_raw, na_probs, qid_to_has_ans,
-                                     OPTS.na_prob_thresh)
+  exact_thresh = apply_no_ans_threshold(exact_raw, na_probs, qid_to_has_ans, na_prob_thresh)
+  f1_thresh = apply_no_ans_threshold(f1_raw, na_probs, qid_to_has_ans, na_prob_thresh)
   out_eval = make_eval_dict(exact_thresh, f1_thresh)
   if has_ans_qids:
     has_ans_eval = make_eval_dict(exact_thresh, f1_thresh, qid_list=has_ans_qids)
@@ -254,24 +225,20 @@ def main():
   if no_ans_qids:
     no_ans_eval = make_eval_dict(exact_thresh, f1_thresh, qid_list=no_ans_qids)
     merge_eval(out_eval, no_ans_eval, 'NoAns')
-  if OPTS.na_prob_file:
+  if na_prob_file:
     find_all_best_thresh(out_eval, preds, exact_raw, f1_raw, na_probs, qid_to_has_ans)
-  if OPTS.na_prob_file and OPTS.out_image_dir:
-    run_precision_recall_analysis(out_eval, exact_raw, f1_raw, na_probs,
-                                  qid_to_has_ans, OPTS.out_image_dir)
-    histogram_na_prob(na_probs, has_ans_qids, OPTS.out_image_dir, 'hasAns')
-    histogram_na_prob(na_probs, no_ans_qids, OPTS.out_image_dir, 'noAns')
-  if OPTS.out_file:
-    with open(OPTS.out_file, 'w') as f:
+  if out_file:
+    with open(out_file, 'w') as f:
       json.dump(out_eval, f)
   else:
     print(json.dumps(out_eval, indent=2))
 
+
 if __name__ == '__main__':
-  OPTS = parse_args()
-  if OPTS.out_image_dir:
-    import matplotlib
-    matplotlib.use('Agg')
-    import matplotlib.pyplot as plt
-  main()
+  data_file = ""
+  pred_file = ""
+  na_prob_file = ""
+  na_prob_thresh = ""
+  out_file = ""
+  evaluate(data_file, pred_file, na_prob_file, na_prob_thresh, out_file)
 

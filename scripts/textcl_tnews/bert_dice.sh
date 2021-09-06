@@ -3,7 +3,7 @@
 
 
 FILE_NAME=tnews_dice
-REPO_PATH=/data/xiaoya/workspace/mrc-with-dice-loss
+REPO_PATH=/data/xiaoya/workspace/dice_loss_for_NLP
 MODEL_SCALE=base
 DATA_DIR=/data/xiaoya/datasets/tnews_public_data
 BERT_DIR=/data/xiaoya/pretrain_lm/chinese_L-12_H-768_A-12

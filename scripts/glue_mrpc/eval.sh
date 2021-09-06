@@ -4,7 +4,7 @@
 # file: scripts/glue/eval.sh
 
 
-REPO_PATH=/data/xiaoya/workspace/mrc-with-dice-loss
+REPO_PATH=/data/xiaoya/workspace/dice_loss_for_NLP
 
 EVAL_DIR=$1
 CKPT_PATH=${EVAL_DIR}/$2

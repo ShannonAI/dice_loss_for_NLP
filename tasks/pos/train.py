@@ -34,7 +34,7 @@ from models.bert_classification import BertForSequenceClassification
 from models.model_config import BertForSequenceClassificationConfig
 
 
-class TNewsClassificationTask(pl.LightningModule):
+class PartOfSpeechTask(pl.LightningModule):
     def __init__(self, args: argparse.Namespace):
         super().__init__()
         if isinstance(args, argparse.Namespace):

@@ -7,7 +7,7 @@
 
 
 FILE_NAME=dice_large
-REPO_PATH=/userhome/xiaoya/mrc-with-dice-loss
+REPO_PATH=/userhome/xiaoya/dice_loss_for_NLP
 export PYTHONPATH="$PYTHONPATH:$REPO_PATH"
 echo "DEBUG INFO -> repo dir is : ${REPO_PATH} "
 

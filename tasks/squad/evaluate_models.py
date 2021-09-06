@@ -17,7 +17,6 @@ from pytorch_lightning import Trainer
 def init_evaluate_parser(parser):
     parser.add_argument("--path_to_model_checkpoint", type=str, )
     parser.add_argument("--path_to_model_hparams_file", type=str, default="")
-
     return parser
 
 

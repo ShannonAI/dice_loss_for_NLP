@@ -3,7 +3,7 @@
 
 
 FILE_NAME=brain_enonto_dice
-REPO_PATH=/userhome/xiaoya/mrc-with-dice-loss
+REPO_PATH=/userhome/xiaoya/dice_loss_for_NLP
 MODEL_SCALE=base
 DATA_DIR=/userhome/xiaoya/dataset/new_mrc_ner/new_en_onto5
 BERT_DIR=/userhome/xiaoya/bert/bert_cased_large
@@ -84,7 +84,7 @@ CUDA_VISIBLE_DEVICES=1 python ${REPO_PATH}/tasks/mrc_ner/train.py \
 --construct_entity_span start_and_end \
 --num_labels 1 \
 --flat_ner \
---pred_answerable \
+--pred_answerable "train_infer" \
 --answerable_task_ratio 0.2 \
 --activate_func relu \
 --data_sign en_onto
