@@ -6,7 +6,7 @@
 # file: train.sh
 
 
-TIME=2021.08.24
+TIME=2021.09.06
 FILE_NAME=enconll_dice
 REPO_PATH=/userhome/xiaoya/dice_loss_for_NLP
 MODEL_SCALE=large

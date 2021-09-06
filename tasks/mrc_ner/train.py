@@ -396,7 +396,7 @@ class BertForNERTask(pl.LightningModule):
 
     def test_step(self, batch, batch_idx, use_answerable=True):
         output = {}
-        if self.args.pred_answerable == "train_infer":
+        if "train" in self.args.pred_answerable:
             tokens, attention_mask, token_type_ids, start_labels, end_labels, start_label_mask, end_label_mask, match_labels, label_idx, answerable_label = batch
             start_logits, end_logits, span_logits, cls_logits = self(tokens, attention_mask, token_type_ids)
             if "infer" in self.args.pred_answerable:

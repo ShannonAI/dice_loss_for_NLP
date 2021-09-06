@@ -32,8 +32,6 @@ def generate_query_ner_dataset(source_file_path, dump_file_path, entity_sign="ne
         dataset_name: one in ["en_ontonotes5", "en_conll03", ]
         entity_sign: one of ["nested", "flat"]
         query_sign: defualt is "default"
-    Desc:
-        pass
     """
     entity_queries = queries_for_dataset[dataset_name][query_sign]
     label_lst = queries_for_dataset[dataset_name]["labels"]
