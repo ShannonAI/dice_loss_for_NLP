@@ -13,7 +13,7 @@ TASK=mrpc
 OUTPUT_BASE_DIR=/data/xiaoya/outputs/dice_loss/glue_mrpc
 DATA_DIR=/data/xiaoya/datasets/mrpc
 BERT_DIR=/data/xiaoya/pretrain_lm/bert_cased_large
-REPO_PATH=/data/xiaoya/workspace/mrc-with-dice-loss
+REPO_PATH=/data/xiaoya/workspace/dice_loss_for_NLP
 
 # NEED CHANGE
 LR=2e-5

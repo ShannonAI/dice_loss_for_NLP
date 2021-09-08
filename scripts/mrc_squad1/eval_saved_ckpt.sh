@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 
-REPO_PATH=/data/xiaoya/workspace/mrc-with-dice-loss
+REPO_PATH=/data/xiaoya/workspace/dice_loss_for_NLP
 export PYTHONPATH="$PYTHONPATH:$REPO_PATH"
 
 OUTPUT_DIR=/data/xiaoya/outputs/dice_loss/squad/gpu4_ce_base_2_1.0_1__adamw_3e-5_0.1_12_64_384_128

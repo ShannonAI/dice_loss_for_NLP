@@ -93,9 +93,3 @@ class SpanClassifier(nn.Module):
         init.kaiming_uniform_(self.biaffine, a=math.sqrt(5))
 
 
-class BiaffineClassifier(nn.Module):
-    def __init__(self, hidden_size: int, dropout_rate: float, num_labels: int):
-        pass
-
-    def forward(self, arc_head_features, arc_tail_features):
-        pass

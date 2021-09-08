@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-
 # description:
 # utilies for sequence tagging tasks for entity-level tasks
 # (such as NER)

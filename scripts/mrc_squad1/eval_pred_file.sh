@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 
-REPO_PATH=/userhome/xiaoya/mrc-with-dice-loss
+REPO_PATH=/userhome/xiaoya/dice_loss_for_NLP
 export PYTHONPATH="$PYTHONPATH:$REPO_PATH"
 
 DATA_DIR=$1

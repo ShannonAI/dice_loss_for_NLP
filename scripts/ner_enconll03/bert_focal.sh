@@ -1,41 +1,45 @@
 #!/usr/bin/env bash
 # -*- coding: utf-8 -*-
 
+# author: xiaoya li
+# first create: 2021.02.02
+# file: train.sh
 
-FILE_NAME=tnews_dice
-REPO_PATH=/data/xiaoya/workspace/mrc-with-dice-loss
-MODEL_SCALE=base
-DATA_DIR=/data/xiaoya/datasets/tnews_public_data
-BERT_DIR=/data/xiaoya/pretrain_lm/chinese_L-12_H-768_A-12
+TIME=2021.07.23
+FILE_NAME=enconll03_focal
+REPO_PATH=/userhome/xiaoya/mrc-with-dice-loss
+MODEL_SCALE=large
+DATA_DIR=/userhome/xiaoya/dataset/en_conll03
+BERT_DIR=/userhome/xiaoya/bert/bert-large-cased
 
-TRAIN_BATCH_SIZE=36
-EVAL_BATCH_SIZE=12
-MAX_LENGTH=128
-
+TRAIN_BATCH_SIZE=18
+EVAL_BATCH_SIZE=1
+MAX_LENGTH=256
 
 OPTIMIZER=torch.adam
 LR_SCHEDULE=polydecay
-LR=3e-5
+LR=2e-5
 
-BERT_DROPOUT=0.1
-ACC_GRAD=1
-MAX_EPOCH=5
+BERT_DROPOUT=0.2
+ACC_GRAD=4
+MAX_EPOCH=10
 GRAD_CLIP=1.0
 WEIGHT_DECAY=0.002
-WARMUP_PROPORTION=0.1
+WARMUP_PROPORTION=0.06
 
-LOSS_TYPE=dice
-# ce, focal, dice
+LOSS_TYPE=focal
+W_START=1
+W_END=1
+W_SPAN=0.3
 DICE_SMOOTH=1
-DICE_OHEM=0
+DICE_OHEM=0.0
 DICE_ALPHA=0.01
-FOCAL_GAMMA=2
+FOCAL_GAMMA=3
 
-PRECISION=32
+PRECISION=16
 PROGRESS_BAR=1
 VAL_CHECK_INTERVAL=0.25
 export PYTHONPATH="$PYTHONPATH:$REPO_PATH"
-
 
 if [[ ${LOSS_TYPE} == "bce" ]]; then
   LOSS_SIGN=${LOSS_TYPE}
@@ -46,12 +50,12 @@ elif [[ ${LOSS_TYPE} == "dice" ]]; then
 fi
 echo "DEBUG INFO -> loss sign is ${LOSS_SIGN}"
 
-OUTPUT_BASE_DIR=/data/xiaoya/outputs/dice_loss/tnews
-OUTPUT_DIR=${OUTPUT_BASE_DIR}/${FILE_NAME}_${MODEL_SCALE}_${TRAIN_BATCH_SIZE}_${MAX_LENGTH}_${LR}_${LR_SCHEDULE}_${BERT_DROPOUT}_${ACC_GRAD}_${MAX_EPOCH}_${GRAD_CLIP}_${WEIGHT_DECAY}_${WARMUP_PROPORTION}_${LOSS_SIGN}
+OUTPUT_BASE_DIR=/userhome/xiaoya/outputs/dice_loss/mrc_ner/${TIME}
+OUTPUT_DIR=${OUTPUT_BASE_DIR}/${FILE_NAME}_${MODEL_SCALE}_${TRAIN_BATCH_SIZE}_${MAX_LENGTH}_${LR}_${LR_SCHEDULE}_${BERT_DROPOUT}_${ACC_GRAD}_${MAX_EPOCH}_${GRAD_CLIP}_${WEIGHT_DECAY}_${WARMUP_PROPORTION}_${W_START}_${W_END}_${W_SPAN}_${LOSS_SIGN}
 
 mkdir -p ${OUTPUT_DIR}
 
-CUDA_VISIBLE_DEVICES=0 python ${REPO_PATH}/tasks/tnews/train.py \
+CUDA_VISIBLE_DEVICES=0 python ${REPO_PATH}/tasks/mrc_ner/train.py \
 --gpus="1" \
 --precision=${PRECISION} \
 --train_batch_size ${TRAIN_BATCH_SIZE} \
@@ -72,8 +76,18 @@ CUDA_VISIBLE_DEVICES=0 python ${REPO_PATH}/tasks/tnews/train.py \
 --gradient_clip_val ${GRAD_CLIP} \
 --weight_decay ${WEIGHT_DECAY} \
 --loss_type ${LOSS_TYPE} \
+--weight_start ${W_START} \
+--weight_end ${W_END} \
+--weight_span ${W_SPAN} \
 --dice_smooth ${DICE_SMOOTH} \
 --dice_ohem ${DICE_OHEM} \
 --dice_alpha ${DICE_ALPHA} \
 --dice_square \
---warmup_proportion ${WARMUP_PROPORTION}
+--warmup_proportion ${WARMUP_PROPORTION} \
+--span_loss_candidates gold_pred_random \
+--construct_entity_span start_and_end \
+--flat_ner \
+--pred_answerable "train_infer" \
+--answerable_task_ratio 0.2 \
+--activate_func relu \
+--data_sign en_conll03

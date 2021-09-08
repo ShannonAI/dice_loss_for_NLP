@@ -3,7 +3,7 @@
 
 
 FILE_NAME=brain_zhmsra_focal
-REPO_PATH=/userhome/xiaoya/mrc-with-dice-loss
+REPO_PATH=/userhome/xiaoya/dice_loss_for_NLP
 MODEL_SCALE=base
 DATA_DIR=/userhome/xiaoya/dataset/mrc_ner/new_msra
 BERT_DIR=/userhome/xiaoya/bert/chinese_bert
@@ -82,7 +82,7 @@ CUDA_VISIBLE_DEVICES=1 python ${REPO_PATH}/tasks/mrc_ner/train.py \
 --num_labels 1 \
 --flat_ner \
 --is_chinese \
---pred_answerable \
+--pred_answerable "train_infer" \
 --answerable_task_ratio 0.2 \
 --activate_func relu \
 --data_sign zh_msra
