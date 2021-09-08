@@ -42,13 +42,13 @@ We choose BERT as the backbone.
 During training, the task trainer `BertForQA` will automatically evaluate on dev set every `$val_check_interval` epoch,
 and save the dev predictions into files called `$OUTPUT_DIR/predictions_<train-epoch>_<total-train-step>.json` and `$OUTPUT_DIR/nbest_predictions_<train-epoch>_<total-train-step>.json`. 
 
-Run `scripts/squad1/bert_<model-scale>_<loss-type>.sh` to reproduce our experimental results. <br> 
+Run `scripts/mrc_squad1/bert_<model-scale>_<loss-type>.sh` to reproduce our experimental results. <br> 
 The variable `<model-scale>` should take the value of `[base, large]`. <br> 
 The variable `<loss-type>` should take the value of `[bce, focal, dice]` which denotes fine-tuning `BERT-Base` with `binary cross entropy loss`, `focal loss`, `dice loss` , respectively. <br> 
 
-* Run `bash scripts/squad1/bert_base_focal.sh` to start training. After training, run `bash scripts/squad1/eval_pred_file.sh $DATA_DIR $OUTPUT_DIR` for focal loss. <br>
+* Run `bash scripts/mrc_squad1/bert_base_focal.sh` to start training. After training, run `bash scripts/mrc_squad1/eval_pred_file.sh $DATA_DIR $OUTPUT_DIR` for focal loss. <br>
 
-* Run `bash scripts/squad1/bert_base_dice.sh` to start training. After training, run `bash scripts/squad1/eval_pred_file.sh $DATA_DIR $OUTPUT_DIR` for dice loss. <br>
+* Run `bash scripts/mrc_squad1/bert_base_dice.sh` to start training. After training, run `bash scripts/mrc_squad1/eval_pred_file.sh $DATA_DIR $OUTPUT_DIR` for dice loss. <br>
 
 
 ***Evaluate*** <br>
@@ -150,12 +150,12 @@ Before running experiments, you should [download](https://storage.googleapis.com
 ***Train*** <br>
 
 We choose BERT as the backbone. <br>
-Please run `scripts/tnews/bert_<loss-type>.sh` to train and evaluate on the dev set every `$val_check_interval` epoch.
+Please run `scripts/textcl_tnews/bert_<loss-type>.sh` to train and evaluate on the dev set every `$val_check_interval` epoch.
 The variable `<loss-type>` should take the value of `[focal, dice]` which denotes fine-tuning `BERT` with `focal loss`, `dice loss` , respectively. 
 
-* Run `bash scripts/tnews/bert_focal.sh` for focal loss.<br>
+* Run `bash scripts/textcl_tnews/bert_focal.sh` for focal loss.<br>
 
-* Run `bash scripts/tnews/bert_dice.sh` for dice loss. <br>
+* Run `bash scripts/textcl_tnews/bert_dice.sh` for dice loss. <br>
 
 The intermediate model checkpoints are saved at most `$max_keep_ckpt` times. 
 
@@ -175,7 +175,7 @@ If you find this repository useful , please cite the following:
 
 ## Contact 
 
-xiaoyalixy AT gmail.com OR xiaoya_li AT shannonai.com 
+xxiaoyali [AT] gmail.com OR xiaoya_li [AT] shannonai.com 
 
 Any discussions, suggestions and questions are welcome!
 
