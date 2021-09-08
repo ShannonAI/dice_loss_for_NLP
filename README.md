@@ -121,6 +121,11 @@ For Chinese OntoNotes4, <br>
 
 * Run `scripts/ner_zhonto4/bert_dice.sh` for dice loss. <br>
 
+For English CoNLL03, <br>
+* Run `scritps/ner_enconll03/bert_focal.sh`. After training, you will get 93.08 Span-F1 on the test set. <br> 
+
+* Run `scripts/ner_enconll03/bert_dice.sh`. After training, you will get 93.21 Span-F1 on the test set. <br>
+
 For English OntoNotes5, <br>
 * Run `scripts/ner_enontonotes5/bert_focal.sh`. After training, you will get 91.12 Span-F1  on the test set.  <br> 
 
